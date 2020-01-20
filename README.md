@@ -1,2 +1,37 @@
 # DataVersions
-Build the simple mechanism to handle data version management on hadoop
+Build the simple mechanism to handle data version management on file（hadoop）.
+
+# 模块划分
+|模块|子模块|功能|
+| ----- | --------- | ----------- |
+核心模块|数据存储内核|实现数模存储逻辑
+核心模块|数据交互内核|实现数据重组对外输出的逻辑
+核心模块|数据版本内核|实现版本管理、迭代、生成和合并
+管理模块|元数据管理模块|实现对元数据的初始化、管理等操作
+管理模块|数据监控模块|对数据进行监控及统计分析
+管理模块|数据合并及清理服务模块|对数据/元数据进行定期合并和清理
+hadoop扩展模块|mapreduce支持|实现input format及output format等对接
+hadoop扩展模块|。。。|。。。
+hive扩展模块|metastore扩展|针对metastore进行扩展
+hive扩展模块|hive解析扩展|针对hive sql的解析及任务生成逻辑进行扩展
+spark扩展模块|metastore spark适配|扩展spark解析hive metastore的适配能力
+spark扩展模块|spark解析扩展|扩展spark自定义函数完成
+
+
+
+# 工期计划
+- 一期（简单实现数据版本）
+  1. 完成基础数模设计及规划，使用变更表及数据表进行支撑。``（存储内核1）``
+  2. 开发由元数据生成对应版本数据的mapreduce job，并封装成工具类。``（交互内核1）``
+  3. 开发数据扩展插入及合并服务。``（版本内核1）``
+- 二期（参考Flink基于RocksDB实现的增量外部存储，进行应用优化）
+  1. 完善数据存储，简化变更表为元文件待扩展模式。``（存储内核2）``
+  2. 实现数据交互能力在input format及output format的封装，并封装在依赖包中。``（交互内核2）``
+  3. 优化封装数据动态接入及管理服务，实现基于配置的自动化数据接入能力。``（版本内核2）``
+  4. 初步实现hive扩展模块能力。``（扩展1）``
+- 三期（大部分待定）
+  1. 优化逻辑（待定）
+  2. 完成spark扩展模块
+- 之后（待定）
+
+
